@@ -9,15 +9,30 @@ import { MotionDiv } from '@/components/ui/motion-wrapper';
 
 const heroImages = [
   {
-    src: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
+    src: '/Hero/hero1.webp',
     alt: 'Window repair service'
   },
   {
-    src: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg',
+    src: '/Hero/hero2.webp',
     alt: 'Window replacement'
   },
   {
-    src: 'https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg',
+    src: '/Hero/hero3.webp',
+    alt: 'Window installation'
+  }
+];
+
+const mobileHeroImages = [
+  {
+    src: '/Hero/heromobile1.webp',
+    alt: 'Window repair service'
+  },
+  {
+    src: '/Hero/heromobile2.webp',
+    alt: 'Window replacement'
+  },
+  {
+    src: '/Hero/heromobile3.webp',
     alt: 'Window installation'
   }
 ];
@@ -25,13 +40,24 @@ const heroImages = [
 export const HeroSection = () => {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Assuming 768px as the mobile breakpoint
+    };
+
+    handleResize(); // Set initial value
+    window.addEventListener('resize', handleResize);
+
     const timer = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
     }, 4000);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
@@ -48,8 +74,8 @@ export const HeroSection = () => {
             className="absolute inset-0"
           >
             <Image
-              src={heroImages[currentImageIndex].src}
-              alt={heroImages[currentImageIndex].alt}
+              src={isMobile ? mobileHeroImages[currentImageIndex].src : heroImages[currentImageIndex].src}
+              alt={isMobile ? mobileHeroImages[currentImageIndex].alt : heroImages[currentImageIndex].alt}
               fill
               className="object-cover"
               priority
