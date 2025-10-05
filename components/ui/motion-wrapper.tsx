@@ -1,20 +1,22 @@
 'use client';
 
 import { motion, HTMLMotionProps } from 'framer-motion';
-import { ReactNode } from 'react';
+import { forwardRef, ReactNode, Ref } from 'react';
 
-interface MotionWrapperProps extends HTMLMotionProps<'div'> {
+interface MotionWrapperProps extends Omit<HTMLMotionProps<'div'>, 'ref'> {
   children: ReactNode;
   className?: string;
 }
 
-export const MotionDiv = ({ children, className, ...props }: MotionWrapperProps) => {
-  return (
-    <motion.div className={className} {...props}>
-      {children}
-    </motion.div>
-  );
-};
+export const MotionDiv = forwardRef<HTMLDivElement, MotionWrapperProps>(
+  ({ children, className, ...props }, ref: Ref<HTMLDivElement>) => {
+    return (
+      <motion.div ref={ref} className={className} {...props}>
+        {children}
+      </motion.div>
+    );
+  }
+);
 
 export const fadeInUp = {
   initial: { opacity: 0, y: 60 },
