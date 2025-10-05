@@ -56,6 +56,7 @@ export const ServicesSection = () => {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-[#0e0e0e]">
       <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
         <MotionDiv
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,6 +73,7 @@ export const ServicesSection = () => {
           </p>
         </MotionDiv>
 
+        {/* Services Grid */}
         <MotionDiv
           variants={staggerContainer}
           initial="initial"
@@ -81,17 +83,20 @@ export const ServicesSection = () => {
         >
           {services.map((service) => {
             const Icon = service.icon;
+            const isActive = hoveredService === service.id;
+
             return (
               <motion.div
                 key={service.id}
                 variants={fadeInUp}
                 onHoverStart={() => setHoveredService(service.id)}
                 onHoverEnd={() => setHoveredService(null)}
-                className="group"
+                onClick={() => setHoveredService(isActive ? null : service.id)} // Mobile tap
+                className="group cursor-pointer"
               >
                 <GlassCard hover className="p-6 h-full">
                   <div className="flex flex-col h-full">
-                    {/* Service Icon */}
+                    {/* Icon + Price */}
                     <div className="flex items-center justify-between mb-4">
                       <div className="p-3 rounded-xl bg-[#b8a47e]/20 group-hover:bg-[#b8a47e]/30 transition-colors">
                         <Icon className="w-6 h-6 text-[#b8a47e]" />
@@ -102,47 +107,51 @@ export const ServicesSection = () => {
                       </div>
                     </div>
 
-                    {/* Service Info */}
+                    {/* Title + Description */}
                     <div className="flex-1">
                       <h3 className="text-xl font-bold text-[#f4f4f4] mb-3">{service.title}</h3>
                       <p className="text-[#a1a1a1] mb-6 leading-relaxed">{service.description}</p>
                     </div>
 
-                    {/* Before/After Images */}
+                    {/* Before/After Image */}
                     <div className="relative mb-6 rounded-xl overflow-hidden aspect-video">
+                      {/* Before image always visible */}
+                      <Image
+                        src={service.beforeImage}
+                        alt={`${service.title} - Before`}
+                        fill
+                        className="object-cover transition-opacity duration-700 ease-in-out"
+                      />
+
+                      {/* After image overlay */}
                       <motion.div
-                        className="absolute inset-0 flex"
-                        animate={{ x: hoveredService === service.id ? '-50%' : '0%' }}
+                        className="absolute inset-0"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: isActive ? 1 : 0 }}
                         transition={{ duration: 0.6, ease: 'easeInOut' }}
                       >
-                        <div className="w-full relative">
-                          <Image
-                            src={service.beforeImage}
-                            alt={`${service.title} - Before`}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                          />
-                          <div className="absolute bottom-2 left-2 bg-black/60 text-white px-2 py-1 rounded text-xs">
-                            Before
-                          </div>
-                        </div>
-                        <div className="w-full relative">
-                          <Image
-                            src={service.afterImage}
-                            alt={`${service.title} - After`}
-                            fill
-                            className="object-cover"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                          />
-                          <div className="absolute bottom-2 left-2 bg-[#b8a47e]/80 text-black px-2 py-1 rounded text-xs font-medium">
-                            After
-                          </div>
-                        </div>
+                        <Image
+                          src={service.afterImage}
+                          alt={`${service.title} - After`}
+                          fill
+                          className="object-cover"
+                        />
                       </motion.div>
+
+                      {/* Label */}
+                      <div className="absolute bottom-2 left-2 flex gap-2">
+                        <span
+                          className={`px-2 py-1 rounded text-xs font-medium transition-all ${isActive
+                            ? 'bg-[#b8a47e]/80 text-black'
+                            : 'bg-black/60 text-white'
+                            }`}
+                        >
+                          {isActive ? 'After' : 'Before'}
+                        </span>
+                      </div>
                     </div>
 
-                    {/* CTA Button */}
+                    {/* Button */}
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -158,7 +167,7 @@ export const ServicesSection = () => {
           })}
         </MotionDiv>
 
-        {/* Call to Action */}
+        {/* CTA */}
         <MotionDiv
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
