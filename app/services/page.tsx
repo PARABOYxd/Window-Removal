@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Check, ArrowRight, Star, Shield, Clock } from 'lucide-react';
 import { MotionDiv, staggerContainer, fadeInUp } from '@/components/ui/motion-wrapper';
 import { GlassCard } from '@/components/ui/glass-card';
@@ -194,21 +195,25 @@ export default function ServicesPage() {
                   
                   {/* CTA Buttons */}
                   <div className="flex flex-col gap-3">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full bg-[#b8a47e] text-black py-3 px-4 rounded-lg font-semibold hover:bg-[#b8a47e]/90 transition-colors flex items-center justify-center gap-2"
-                    >
-                      Book Now
-                      <ArrowRight className="w-4 h-4" />
-                    </motion.button>
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full border border-[#b8a47e] text-[#b8a47e] py-3 px-4 rounded-lg font-semibold hover:bg-[#b8a47e]/10 transition-colors"
-                    >
-                      Get Quote
-                    </motion.button>
+                    <Link href="/contact" passHref>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full bg-[#b8a47e] text-black py-3 px-4 rounded-lg font-semibold hover:bg-[#b8a47e]/90 transition-colors flex items-center justify-center gap-2"
+                      >
+                        Book Now
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.button>
+                    </Link>
+                    <Link href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} passHref target="_blank">
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full border border-[#b8a47e] text-[#b8a47e] py-3 px-4 rounded-lg font-semibold hover:bg-[#b8a47e]/10 transition-colors"
+                      >
+                        Get Quote
+                      </motion.button>
+                    </Link>
                   </div>
                 </div>
               </GlassCard>
@@ -232,20 +237,24 @@ export default function ServicesPage() {
               the perfect window solution for your home or business.
             </p>
             <div className="flex flex-col gap-4 justify-center max-w-sm sm:max-w-md mx-auto">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full bg-[#b8a47e] text-black px-6 py-4 rounded-lg font-semibold hover:bg-[#b8a47e]/90 transition-colors"
-              >
-                Schedule Consultation
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full border border-[#b8a47e] text-[#b8a47e] px-6 py-4 rounded-lg font-semibold hover:bg-[#b8a47e]/10 transition-colors"
-              >
-                Call (555) 123-4567
-              </motion.button>
+              <Link href="/contact" passHref>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full bg-[#b8a47e] text-black px-6 py-4 rounded-lg font-semibold hover:bg-[#b8a47e]/90 transition-colors"
+                >
+                  Schedule Consultation
+                </motion.button>
+              </Link>
+              <Link href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`} passHref target="_blank">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-full border border-[#b8a47e] text-[#b8a47e] px-6 py-4 rounded-lg font-semibold hover:bg-[#b8a47e]/10 transition-colors"
+                >
+                  Call (555) 123-4567
+                </motion.button>
+              </Link>
             </div>
           </GlassCard>
         </MotionDiv>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, CircleCheck as CheckCircle } from 'lucide-react';
 import { MotionDiv, fadeInUp, staggerContainer } from '@/components/ui/motion-wrapper';
@@ -17,6 +17,28 @@ export default function ContactPage() {
     message: ''
   });
   const [errors, setErrors] = useState<Partial<ContactForm>>({});
+
+  const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting user location:", error);
+          // Optionally, handle error by setting a default location or showing a message
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+      // Optionally, handle unsupported case
+    }
+  }, []);
 
   const validateForm = () => {
     const newErrors: Partial<ContactForm> = {};
@@ -56,6 +78,12 @@ export default function ContactPage() {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
+
+  const defaultMapSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434448182!2d-122.4194154846813!3d37.77492957975837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064f936a9ed%3A0x28a5a9d3a4f7a4d!2sWindow%20Replacement%20San%20Francisco!5e0!3m2!1sen!2sus!4v1620152913318!5m2!1sen!2sus";
+
+  const mapSrc = userLocation
+    ? `https://maps.google.com/maps?q=${userLocation.latitude},${userLocation.longitude}&hl=en;z=14&output=embed`
+    : defaultMapSrc;
 
   return (
     <div className="min-h-screen px-4 py-8 bg-gradient-to-br from-[#0e0e0e] via-[#1a1a1a] to-[#0e0e0e]">
@@ -255,14 +283,16 @@ export default function ContactPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <GlassCard className="p-4">
-                <div className="aspect-video bg-gradient-to-br from-[#b8a47e]/20 to-[#b8a47e]/5 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-12 h-12 text-[#b8a47e] mx-auto mb-4" />
-                    <p className="text-[#f4f4f4] font-medium mb-2">Interactive Map</p>
-                    <p className="text-[#a1a1a1] text-sm">Find our location and get directions</p>
-                  </div>
-                </div>
+              <GlassCard className="p-3">
+                <iframe
+                  src={mapSrc}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  className="rounded-xl aspect-video opacity-90"
+                ></iframe>
               </GlassCard>
             </MotionDiv>
           </div>
