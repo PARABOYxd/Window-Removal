@@ -13,7 +13,7 @@ const services = [
     title: 'Window Repair',
     description: 'Professional repair services for damaged windows, seals, and frames.',
     icon: Wrench,
-    price: 'From $89',
+    price: 'Starting From ₹399',
     duration: '1-2 hours',
     beforeImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
     afterImage: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg'
@@ -23,7 +23,7 @@ const services = [
     title: 'Window Replacement',
     description: 'Complete window replacement with premium energy-efficient materials.',
     icon: RotateCcw,
-    price: 'From $299',
+    price: 'Starting From ₹599',
     duration: '2-4 hours',
     beforeImage: 'https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg',
     afterImage: 'https://images.pexels.com/photos/1396126/pexels-photo-1396126.jpeg'
@@ -33,7 +33,7 @@ const services = [
     title: 'Window Repainting',
     description: 'Refresh and protect your windows with professional repainting services.',
     icon: Paintbrush,
-    price: 'From $149',
+    price: 'Starting From ₹499',
     duration: '2-3 hours',
     beforeImage: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg',
     afterImage: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg'
@@ -43,7 +43,7 @@ const services = [
     title: 'New Installation',
     description: 'Expert installation of new windows for construction and renovation.',
     icon: Hammer,
-    price: 'From $399',
+    price: 'Starting From ₹799',
     duration: '3-6 hours',
     beforeImage: 'https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg',
     afterImage: 'https://images.pexels.com/photos/1396126/pexels-photo-1396126.jpeg'
