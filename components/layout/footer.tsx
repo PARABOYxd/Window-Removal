@@ -71,15 +71,15 @@ export const Footer = () => {
             <ul className="space-y-3 text-[#a1a1a1]">
               <li className="flex items-center space-x-2">
                 <Phone className="w-4 h-4 text-[#b8a47e]" />
-                <span>(555) 123-4567</span>
+                <span>{process.env.NEXT_PUBLIC_MY_PHONE_NUMBER || '(555) 123-4567'}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-[#b8a47e]" />
-                <span>info@windowfixpro.com</span>
+                <span>{process.env.NEXT_PUBLIC_MY_EMAIL || 'info@windowfixpro.com'}</span>
               </li>
               <li className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 text-[#b8a47e] mt-1" />
-                <span>123 Main Street<br />City, State 12345</span>
+                <span>{process.env.NEXT_PUBLIC_MY_ADDRESS || '123 Main Street<br />City, State 12345'}</span>
               </li>
             </ul>
           </div>

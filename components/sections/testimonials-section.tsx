@@ -1,9 +1,13 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
 import { MotionDiv, staggerContainer, fadeInUp } from '@/components/ui/motion-wrapper';
 import { GlassCard } from '@/components/ui/glass-card';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
+import './embla.css'; // Assuming a global CSS file for embla styles
 
 const testimonials = [
   {
@@ -29,10 +33,20 @@ const testimonials = [
     rating: 5,
     text: 'The repainting service brought our old windows back to life. The attention to detail and quality of work was outstanding. Will definitely use them again!',
     service: 'Window Repainting'
+  },
+  {
+    id: 4,
+    name: 'Emily Rodriguez',
+    location: 'Hillside',
+    rating: 5,
+    text: 'The repainting service brought our old windows back to life. The attention to detail and quality of work was outstanding. Will definitely use them again!',
+    service: 'Window Repainting'
   }
 ];
 
 export const TestimonialsSection = () => {
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 3000, stopOnInteraction: false })]);
+
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#0e0e0e] to-[#1a1a1a]">
       <div className="max-w-7xl mx-auto">
@@ -51,51 +65,49 @@ export const TestimonialsSection = () => {
           </p>
         </MotionDiv>
 
-        <MotionDiv
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-3 gap-8"
-        >
-          {testimonials.map((testimonial) => (
-            <motion.div key={testimonial.id} variants={fadeInUp}>
-              <GlassCard hover className="p-6 h-full">
-                <div className="flex flex-col h-full">
-                  {/* Quote Icon */}
-                  <div className="flex justify-between items-start mb-4">
-                    <Quote className="w-8 h-8 text-[#b8a47e]/60" />
-                    <div className="flex">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-[#b8a47e] fill-current" />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Testimonial Text */}
-                  <div className="flex-1 mb-6">
-                    <p className="text-[#f4f4f4] leading-relaxed italic">
-                      "{testimonial.text}"
-                    </p>
-                  </div>
-
-                  {/* Customer Info */}
-                  <div className="border-t border-white/10 pt-4">
-                    <div className="flex justify-between items-end">
-                      <div>
-                        <h4 className="text-[#f4f4f4] font-semibold">{testimonial.name}</h4>
-                        <p className="text-[#a1a1a1] text-sm">{testimonial.location}</p>
+        <div className="embla" ref={emblaRef}>
+          <div className="embla__container">
+            {testimonials.map((testimonial) => (
+              <div className="embla__slide" key={testimonial.id}>
+                <MotionDiv variants={fadeInUp}>
+                  <GlassCard hover className="p-6 h-full">
+                    <div className="flex flex-col h-full">
+                      {/* Quote Icon */}
+                      <div className="flex justify-between items-start mb-4">
+                        <Quote className="w-8 h-8 text-[#b8a47e]/60" />
+                        <div className="flex">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="w-5 h-5 text-[#b8a47e] fill-current" />
+                          ))}
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-[#b8a47e] text-sm font-medium">{testimonial.service}</div>
+
+                      {/* Testimonial Text */}
+                      <div className="flex-1 mb-6">
+                        <p className="text-[#f4f4f4] leading-relaxed italic">
+                          "{testimonial.text}"
+                        </p>
+                      </div>
+
+                      {/* Customer Info */}
+                      <div className="border-t border-white/10 pt-4">
+                        <div className="flex justify-between items-end">
+                          <div>
+                            <h4 className="text-[#f4f4f4] font-semibold">{testimonial.name}</h4>
+                            <p className="text-[#a1a1a1] text-sm">{testimonial.location}</p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-[#b8a47e] text-sm font-medium">{testimonial.service}</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </GlassCard>
-            </motion.div>
-          ))}
-        </MotionDiv>
+                  </GlassCard>
+                </MotionDiv>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Trust Badges */}
         <MotionDiv

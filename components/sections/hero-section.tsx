@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { ArrowRight, Play } from 'lucide-react';
 import { MotionDiv } from '@/components/ui/motion-wrapper';
 
@@ -22,6 +23,7 @@ const heroImages = [
 ];
 
 export const HeroSection = () => {
+  const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -91,6 +93,7 @@ export const HeroSection = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => router.push('/contact')}
             className="bg-[#b8a47e] text-black px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-[#b8a47e]/90 transition-colors shadow-lg"
           >
             Get Your Quote Now

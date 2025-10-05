@@ -207,19 +207,19 @@ export default function ContactPage() {
                 {
                   icon: Phone,
                   title: '24/7 Phone Support',
-                  content: '(555) 123-4567',
+                  content: process.env.NEXT_PUBLIC_MY_PHONE_NUMBER || '(555) 123-4567',
                   description: 'Call us anytime for emergency repairs'
                 },
                 {
                   icon: Mail,
                   title: 'Email Us',
-                  content: 'info@windowfixpro.com',
+                  content: process.env.NEXT_PUBLIC_MY_EMAIL || 'info@windowfixpro.com',
                   description: 'We respond within 24 hours'
                 },
                 {
                   icon: MapPin,
                   title: 'Visit Our Office',
-                  content: '123 Main Street, City, State 12345',
+                  content: process.env.NEXT_PUBLIC_MY_ADDRESS || '123 Main Street, City, State 12345',
                   description: 'Open Monday - Friday, 8AM - 6PM'
                 },
                 {
