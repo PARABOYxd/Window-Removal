@@ -35,7 +35,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center">
       {/* Background Images with Parallax */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
